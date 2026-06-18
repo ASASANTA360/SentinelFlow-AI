@@ -8,8 +8,6 @@
 
 Built for UiPath AgentHack 2026
 
-Built for UiPath AgentHack 2026
-
 SentinelFlow AI is an autonomous enterprise case intelligence platform that combines AI agents, human approvals, explainable AI, and workflow orchestration to resolve complex business cases from intake to resolution.
 
 ## 🌍 Problem
