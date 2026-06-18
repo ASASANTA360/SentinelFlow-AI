@@ -1,7 +1,7 @@
 # 🚀 SentinelFlow AI
 
 <p align="center">
-  <img src="./cover.png" width="100%" />
+  <img src="./docs/cover.png" width="100%">
 </p>
 
 ### Autonomous Enterprise Case Intelligence Platform
