@@ -1,36 +1,209 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 SentinelFlow AI
 
-## Getting Started
+![Cover](./cover.png)
 
-First, run the development server:
+### Autonomous Enterprise Case Intelligence Platform
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Built for UiPath AgentHack 2026
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Autonomous Enterprise Case Intelligence Platform
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Built for UiPath AgentHack 2026
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+SentinelFlow AI is an autonomous enterprise case intelligence platform that combines AI agents, human approvals, explainable AI, and workflow orchestration to resolve complex business cases from intake to resolution.
 
-## Learn More
+## 🌍 Problem
 
-To learn more about Next.js, take a look at the following resources:
+Modern enterprises face complex operational challenges:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Invoice disputes
+* Compliance investigations
+* Customer complaints
+* Missing documentation
+* Slow manual approvals
+* Fragmented workflows
+* Lack of transparency and auditability
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+These processes are often slow, error-prone, and difficult to scale.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💡 Solution
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+SentinelFlow AI introduces a multi-agent architecture that combines AI-powered decision making with human approvals and auditability.
+
+The platform orchestrates cases through specialized agents, ensuring explainability, resilience, and enterprise readiness.
+
+---
+
+## ✨ Features
+
+* Multi-Agent Architecture
+* Explainable AI
+* Human-in-the-loop workflows
+* Enterprise Dashboard
+* Risk Analysis
+* Timeline Memory
+* Notifications
+* Audit Logs
+* Analytics
+* MongoDB Persistence
+* Gemini AI Integration
+* UiPath Maestro-inspired orchestration
+
+---
+
+## 🧠 AI Agents
+
+Case Brain Agent
+
+↓
+
+Document Agent
+
+↓
+
+Risk Agent
+
+↓
+
+Exception Agent
+
+↓
+
+Human Review Agent
+
+↓
+
+Resolution Agent
+
+↓
+
+Audit Agent
+
+↓
+
+Notification Agent
+
+---
+
+## 🏗 Architecture
+
+User
+
+↓
+
+Frontend (Next.js)
+
+↓
+
+API Routes
+
+↓
+
+Case Brain Agent
+
+↓
+
+Document Agent
+
+↓
+
+Risk Agent (Gemini)
+
+↓
+
+Exception Agent
+
+↓
+
+Human Review
+
+↓
+
+Resolution Agent
+
+↓
+
+MongoDB
+
+↓
+
+Audit Logs + Notifications
+
+↓
+
+Dashboard
+
+---
+
+## ⚙ Tech Stack
+
+### Frontend
+
+* Next.js 16
+* TypeScript
+* TailwindCSS
+
+### Backend
+
+* Node.js
+
+### Database
+
+* MongoDB Atlas
+
+### AI
+
+* Gemini 2.5 Flash
+
+### Visualization
+
+* Recharts
+
+### Architecture
+
+* UiPath Maestro-inspired orchestration
+
+---
+
+## 📊 Pages
+
+* Home
+* Dashboard
+* Cases
+* Case Details
+* Analytics
+* Timeline
+* Notifications
+* Audit Logs
+* Settings
+* About
+
+---
+
+## 🚀 Live Demo
+
+https://sentinel-flow-ai-xi.vercel.app/
+
+---
+
+## 📂 Repository
+
+https://github.com/ASASANTA360/SentinelFlow-AI
+
+---
+
+## 🔮 Future Roadmap
+
+* Real-time agent monitoring
+* Multi-user collaboration
+* Role-based access control
+* Vector memory
+* Document upload intelligence
+* MCP integrations
+* Enterprise workflow automation
+
+---
+
+Built for UiPath AgentHack 2026.
