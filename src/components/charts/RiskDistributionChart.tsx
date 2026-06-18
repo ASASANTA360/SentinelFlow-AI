@@ -1,53 +1,33 @@
 "use client";
 
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
-const data = [
-  { name: "Low", value: 45 },
-  { name: "Medium", value: 30 },
-  { name: "High", value: 18 },
-  { name: "Critical", value: 7 },
-];
-
-const COLORS = [
-  "#10B981",
-  "#FACC15",
-  "#F97316",
-  "#EF4444",
-];
-
 export default function RiskDistributionChart() {
+  const risks = [
+    { label: "Low", value: 45 },
+    { label: "Medium", value: 30 },
+    { label: "High", value: 18 },
+    { label: "Critical", value: 7 },
+  ];
+
   return (
     <div className="glass-card rounded-3xl p-6">
-      <h2 className="mb-5 text-xl font-bold">
-        Risk Distribution
-      </h2>
+      <h2 className="text-xl font-bold">Risk Distribution</h2>
 
-      <div className="h-[300px]">
-        <ResponsiveContainer>
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="value"
-              outerRadius={100}
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={index}
-                  fill={COLORS[index]}
-                />
-              ))}
-            </Pie>
+      <div className="mt-6 space-y-4">
+        {risks.map((risk) => (
+          <div key={risk.label}>
+            <div className="mb-2 flex justify-between text-sm">
+              <span className="text-slate-300">{risk.label}</span>
+              <span className="text-slate-400">{risk.value}%</span>
+            </div>
 
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
+            <div className="h-3 rounded-full bg-slate-800">
+              <div
+                className="h-3 rounded-full bg-blue-500"
+                style={{ width: `${risk.value}%` }}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
