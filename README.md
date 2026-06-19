@@ -180,6 +180,101 @@ Dashboard
 
 ---
 
+# UiPath Components Used
+
+SentinelFlow AI leverages the following UiPath ecosystem components and concepts:
+
+* Agent Builder
+* Maestro-inspired orchestration
+* API Workflows
+* Human-in-the-loop approvals
+* Action Center concepts
+* AI-driven decision agents
+* Workflow orchestration patterns
+* Case lifecycle management
+* Audit and monitoring capabilities
+
+# Agent Type
+
+SentinelFlow AI uses both **Coded Agents** and **Low-code Agent concepts**.
+
+* Coded Agents are implemented using Next.js, TypeScript, Node.js, and Gemini 2.5 Flash.
+* Low-code concepts are inspired by UiPath Maestro orchestration and human approval workflows.
+
+# Setup Instructions
+
+## Prerequisites
+
+* Node.js 20+
+* npm
+* MongoDB Atlas account
+* Gemini API Key
+
+## Step 1 — Clone Repository
+
+```bash
+git clone https://github.com/ASASANTA360/SentinelFlow-AI.git
+cd SentinelFlow-AI
+```
+
+## Step 2 — Install Dependencies
+
+```bash
+npm install
+```
+
+## Step 3 — Configure Environment Variables
+
+Create a `.env.local` file:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+## Step 4 — Run Development Server
+
+```bash
+npm run dev
+```
+
+Application runs on:
+
+```text
+http://localhost:3000
+```
+
+## Step 5 — Open Dashboard
+
+Available pages:
+
+* Home
+* Dashboard
+* Cases
+* Case Details
+* Analytics
+* Timeline
+* Notifications
+* Audit Logs
+* Settings
+* About
+
+## Step 6 — Case Workflow
+
+1. Submit a case.
+2. Case Brain Agent analyzes the request.
+3. Document Agent validates information.
+4. Risk Agent performs AI analysis.
+5. Exception Agent detects anomalies.
+6. Human Review Agent requests approval if necessary.
+7. Resolution Agent resolves the case.
+8. Audit Agent stores logs.
+9. Notification Agent updates stakeholders.
+
+# Judging Notes
+
+SentinelFlow AI demonstrates autonomous enterprise case intelligence using multi-agent orchestration, explainable AI, human approvals, and audit-ready workflows. The platform combines coded agents with low-code orchestration concepts inspired by UiPath Maestro.
+
 ## 🚀 Live Demo
 
 https://sentinel-flow-ai-xi.vercel.app/
