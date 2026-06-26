@@ -1,137 +1,115 @@
 # 🚀 SentinelFlow AI
 
 <p align="center">
-  <img scr="./docs/cover.png" width="100%">
+  <img src="./docs/cover.png" alt="SentinelFlow AI cover" width="100%">
 </p>
 
-### Autonomous Enterprise Case Intelligence Platform
+<p align="center">
+  <strong>Autonomous Enterprise Case Intelligence Platform</strong><br>
+  Built for UiPath AgentHack 2026
+</p>
 
-Built for UiPath AgentHack 2026
+SentinelFlow AI is an autonomous enterprise case-intelligence platform that combines AI agents, UiPath workflow orchestration, human approvals, explainable decisions, and audit-ready records to help resolve complex business cases from intake to resolution.
 
-SentinelFlow AI is an autonomous enterprise case intelligence platform that combines AI agents, human approvals, explainable AI, and workflow orchestration to resolve complex business cases from intake to resolution.
+---
 
 ## 🌍 Problem
 
-Modern enterprises face complex operational challenges:
+Modern enterprises handle complex operational cases such as:
 
 * Invoice disputes
 * Compliance investigations
 * Customer complaints
 * Missing documentation
-* Slow manual approvals
+* Manual approval delays
 * Fragmented workflows
-* Lack of transparency and auditability
+* Risk and exception handling
+* Limited transparency and auditability
 
-These processes are often slow, error-prone, and difficult to scale.
+These processes are often slow, error-prone, difficult to trace, and expensive to scale across teams.
 
 ---
 
 ## 💡 Solution
 
-SentinelFlow AI introduces a multi-agent architecture that combines AI-powered decision making with human approvals and auditability.
+SentinelFlow AI introduces a multi-agent workflow that combines AI-powered analysis with human oversight and enterprise auditability.
 
-The platform orchestrates cases through specialized agents, ensuring explainability, resilience, and enterprise readiness.
+The platform coordinates specialized agents to review cases, analyze documents, identify risks, detect exceptions, request approvals, record audit events, and notify stakeholders.
+
+This approach enables automation while keeping important decisions explainable and reviewable.
 
 ---
 
 ## ✨ Features
 
-* Multi-Agent Architecture
-* Explainable AI
-* Human-in-the-loop workflows
-* Enterprise Dashboard
-* Risk Analysis
-* Timeline Memory
-* Notifications
-* Audit Logs
-* Analytics
-* MongoDB Persistence
-* Gemini AI Integration
-* UiPath Maestro-inspired orchestration
+* Multi-agent case workflow orchestration
+* Gemini-powered risk and document analysis
+* Human-in-the-loop approval workflow
+* UiPath Maestro integration and orchestration support
+* Enterprise dashboard for case management
+* Risk analysis and exception detection
+* Case timeline and workflow memory
+* Notifications and stakeholder updates
+* Audit logs and traceability
+* Operational analytics
+* MongoDB Atlas persistence
+* Public Vercel deployment
 
 ---
 
-## 🧠 AI Agents
+## 🧠 AI Agent Workflow
 
-Case Brain Agent
-
-↓
-
-Document Agent
-
-↓
-
-Risk Agent
-
-↓
-
+```text
+Case Intake Agent
+        ↓
+Document Review Agent
+        ↓
+Risk Analysis Agent
+        ↓
 Exception Agent
-
-↓
-
-Human Review Agent
-
-↓
-
+        ↓
+Human Review and Approval
+        ↓
 Resolution Agent
-
-↓
-
+        ↓
 Audit Agent
-
-↓
-
+        ↓
 Notification Agent
+        ↓
+Analytics Dashboard
+```
+
+Each agent has a defined responsibility, helping the system maintain clear handoffs, transparent reasoning, and accountable outcomes.
 
 ---
 
 ## 🏗 Architecture
 
+```text
 User
-
-↓
-
-Frontend (Next.js)
-
-↓
-
+  ↓
+Next.js Frontend
+  ↓
 API Routes
-
-↓
-
+  ↓
 Case Brain Agent
-
-↓
-
-Document Agent
-
-↓
-
-Risk Agent (Gemini)
-
-↓
-
-Exception Agent
-
-↓
-
-Human Review
-
-↓
-
+  ↓
+Document Review Agent
+  ↓
+Risk Analysis Agent (Gemini 2.5 Flash)
+  ↓
+Exception and Escalation Agent
+  ↓
+UiPath Maestro Workflow Orchestration
+  ↓
+Human Approval
+  ↓
 Resolution Agent
-
-↓
-
-MongoDB
-
-↓
-
-Audit Logs + Notifications
-
-↓
-
-Dashboard
+  ↓
+MongoDB Atlas
+  ↓
+Audit Logs, Notifications, and Analytics
+```
 
 ---
 
@@ -141,11 +119,13 @@ Dashboard
 
 * Next.js 16
 * TypeScript
-* TailwindCSS
+* Tailwind CSS
+* Recharts
 
 ### Backend
 
 * Node.js
+* Next.js API Routes
 
 ### Database
 
@@ -153,19 +133,26 @@ Dashboard
 
 ### AI
 
-* Gemini 2.5 Flash
+* Google Gemini 2.5 Flash
 
-### Visualization
+### UiPath Components
 
-* Recharts
+* UiPath Agent Builder
+* UiPath Maestro integration
+* API Workflows
+* Human-in-the-loop approvals
+* Action Center concepts
+* Workflow orchestration patterns
+* Case lifecycle management
+* Audit and monitoring concepts
 
-### Architecture
+### Deployment
 
-* UiPath Maestro-inspired orchestration
+* Vercel
 
 ---
 
-## 📊 Pages
+## 📊 Application Pages
 
 * Home
 * Dashboard
@@ -180,50 +167,57 @@ Dashboard
 
 ---
 
-# UiPath Components Used
+## 🤖 Agent Type
 
-SentinelFlow AI leverages the following UiPath ecosystem components and concepts:
+SentinelFlow AI uses both coded agents and low-code orchestration concepts.
 
-* Agent Builder
-* Maestro-inspired orchestration
-* API Workflows
-* Human-in-the-loop approvals
-* Action Center concepts
-* AI-driven decision agents
-* Workflow orchestration patterns
+### Coded Agents
+
+The coded agents are implemented with:
+
+* Next.js
+* TypeScript
+* Node.js
+* Gemini 2.5 Flash
+* MongoDB Atlas
+
+### Low-Code Workflow Concepts
+
+The project uses UiPath Maestro integration and workflow patterns for:
+
+* Agent coordination
+* Workflow handoffs
+* Human approvals
+* Escalation paths
 * Case lifecycle management
-* Audit and monitoring capabilities
+* Auditability
 
-# Agent Type
+---
 
-SentinelFlow AI uses both **Coded Agents** and **Low-code Agent concepts**.
+## 🛠 Setup Instructions
 
-* Coded Agents are implemented using Next.js, TypeScript, Node.js, and Gemini 2.5 Flash.
-* Low-code concepts are inspired by UiPath Maestro orchestration and human approval workflows.
+### Prerequisites
 
-# Setup Instructions
-
-## Prerequisites
-
-* Node.js 20+
+* Node.js 20 or later
 * npm
 * MongoDB Atlas account
-* Gemini API Key
+* Gemini API key
+* UiPath environment and required integration credentials
 
-## Step 1 — Clone Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ASASANTA360/SentinelFlow-AI.git
 cd SentinelFlow-AI
 ```
 
-## Step 2 — Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-## Step 3 — Configure Environment Variables
+### 3. Configure Environment Variables
 
 Create a `.env.local` file:
 
@@ -232,70 +226,99 @@ MONGODB_URI=your_mongodb_connection_string
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-## Step 4 — Run Development Server
+Add UiPath-related environment variables required by your integration setup.
+
+### 4. Start the Development Server
 
 ```bash
 npm run dev
 ```
 
-Application runs on:
+Open:
 
 ```text
 http://localhost:3000
 ```
 
-## Step 5 — Open Dashboard
+### 5. Run a Production Build
 
-Available pages:
+```bash
+npm run build
+```
 
-* Home
-* Dashboard
-* Cases
-* Case Details
-* Analytics
-* Timeline
-* Notifications
-* Audit Logs
-* Settings
-* About
+### 6. Test the Case Workflow
 
-## Step 6 — Case Workflow
-
-1. Submit a case.
-2. Case Brain Agent analyzes the request.
-3. Document Agent validates information.
-4. Risk Agent performs AI analysis.
-5. Exception Agent detects anomalies.
-6. Human Review Agent requests approval if necessary.
-7. Resolution Agent resolves the case.
-8. Audit Agent stores logs.
-9. Notification Agent updates stakeholders.
-
-# Judging Notes
-
-SentinelFlow AI demonstrates autonomous enterprise case intelligence using multi-agent orchestration, explainable AI, human approvals, and audit-ready workflows. The platform combines coded agents with low-code orchestration concepts inspired by UiPath Maestro.
-
-## 🚀 Live Demo
-
-https://sentinel-flow-ai-xi.vercel.app/
+1. Create or open a case.
+2. The Case Intake Agent analyzes the submitted information.
+3. The Document Review Agent checks available case documents.
+4. The Risk Analysis Agent performs Gemini-assisted analysis.
+5. The Exception Agent identifies anomalies or missing requirements.
+6. UiPath Maestro coordinates workflow steps and approvals.
+7. A Human Review Agent requests approval where required.
+8. The Resolution Agent records the case outcome.
+9. The Audit Agent stores traceable workflow events.
+10. The Notification Agent updates relevant stakeholders.
 
 ---
 
-## 📂 Repository
+## 🏆 Accomplishments
 
-https://github.com/ASASANTA360/SentinelFlow-AI
+We are proud of building:
+
+* A functional end-to-end enterprise case workflow prototype
+* Gemini-powered analysis for case and risk intelligence
+* MongoDB Atlas-backed persistence
+* UiPath Maestro workflow integration
+* Specialized agents for intake, review, escalation, audit, resolution, and notifications
+* A multi-page enterprise dashboard
+* Case timelines, notifications, analytics, and audit logging
+* Human-in-the-loop approvals
+* Public source code and deployed demo
+* A successful production build
+
+---
+
+## 📚 What We Learned
+
+Building SentinelFlow AI reinforced that enterprise AI requires more than intelligence.
+
+Trustworthy enterprise workflows need:
+
+* Explainability
+* Human oversight
+* Clear escalation paths
+* Persistent audit trails
+* Structured case history
+* Reliable orchestration
+* Secure and resilient system design
+
+The goal is not to remove people from enterprise decisions. The goal is to help people and AI agents collaborate more effectively.
 
 ---
 
 ## 🔮 Future Roadmap
 
 * Real-time agent monitoring
-* Multi-user collaboration
 * Role-based access control
-* Vector memory
-* Document upload intelligence
+* Multi-user collaboration
+* Vector memory and case context
+* Advanced document-upload intelligence
 * MCP integrations
-* Enterprise workflow automation
+* External enterprise-system integrations
+* Multi-tenant support
+* Workflow templates
+* Advanced analytics and reporting
+* Expanded UiPath Agent Builder and Maestro workflows
+
+---
+
+## 🚀 Live Demo
+
+https://sentinel-flow-ai-xi.vercel.app/
+
+## 📂 Repository
+
+https://github.com/ASASANTA360/SentinelFlow-AI
 
 ---
 
