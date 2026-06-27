@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import UiPathJobsPanel from "../../components/UiPathJobsPanel";
 import {
   AlertTriangle,
   Bot,
@@ -210,8 +211,11 @@ export default function DashboardPage() {
           );
         })}
       </section>
-
+      <div className="mt-8">
+      <UiPathJobsPanel />
+    </div>
       <section className="mt-8 grid gap-6 xl:grid-cols-3">
+        
         <div className="glass-card rounded-3xl p-6 xl:col-span-2">
           <div className="mb-6 flex items-center justify-between">
             <div>
