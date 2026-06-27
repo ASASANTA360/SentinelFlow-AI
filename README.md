@@ -1,234 +1,157 @@
-# 🚀 SentinelFlow AI
+# SentinelFlow AI
 
-<p align="center">
-  <img src="./docs/cover.png" alt="SentinelFlow AI cover" width="100%">
-</p>
+SentinelFlow AI is a case-management and review workflow built for UiPath AgentHack 2026. The current live demo focuses on a working case lifecycle: create a case, persist it in MongoDB, route it to human review, resolve it, and inspect the resulting timeline, audit trail, dashboard metrics, and analytics.
 
-<p align="center">
-  <strong>Autonomous Enterprise Case Intelligence Platform</strong><br>
-  Built for UiPath AgentHack 2026
-</p>
+Live demo: https://sentinel-flow-ai-xi.vercel.app/
 
-SentinelFlow AI is an autonomous enterprise case-intelligence platform that combines AI agents, UiPath workflow orchestration, human approvals, explainable decisions, and audit-ready records to help resolve complex business cases from intake to resolution.
+Repository: https://github.com/ASASANTA360/SentinelFlow-AI
 
 ---
 
-## 🌍 Problem
+## What Works Today
 
-Modern enterprises handle complex operational cases such as:
+- Case creation from the `/cases` page with a generated unique `caseId` stored on the case record.
+- MongoDB persistence through Mongoose models for `Case`, `CaseEvent`, and `AuditLog`.
+- Case list, search, and detail views backed by live API routes.
+- Human review workflow using the `Send to Human Review` action on a case detail page.
+- Case resolution using the `Resolve Case` action on a case detail page.
+- CaseEvent timeline entries for case creation and case updates.
+- AuditLog entries for case creation and case updates.
+- Dashboard page with live case counts, recent cases, human review count, and resolved case count.
+- Analytics page with total, active, high-risk, human-review, resolved, status distribution, risk distribution, and resolution-rate metrics.
+- Timeline page showing persisted case events across cases.
+- Audit page showing persisted audit entries across cases.
 
-* Invoice disputes
-* Compliance investigations
-* Customer complaints
-* Missing documentation
-* Manual approval delays
-* Fragmented workflows
-* Risk and exception handling
-* Limited transparency and auditability
+## Roadmap / Conceptual Work
 
-These processes are often slow, error-prone, difficult to trace, and expensive to scale across teams.
+The repository contains exploratory agent-oriented code and placeholder routes, but the submission demo should not present these as completed integrations.
 
----
+Not claimed as live production functionality:
 
-## 💡 Solution
+- Live Gemini analysis in the main case workflow.
+- Working UiPath Maestro integration.
+- UiPath Agent Builder implementation.
+- UiPath Action Center implementation.
+- Working notification delivery.
+- Document upload processing beyond the placeholder upload endpoint.
+- Role-based users, authentication, or multi-user assignment.
 
-SentinelFlow AI introduces a multi-agent workflow that combines AI-powered analysis with human oversight and enterprise auditability.
-
-The platform coordinates specialized agents to review cases, analyze documents, identify risks, detect exceptions, request approvals, record audit events, and notify stakeholders.
-
-This approach enables automation while keeping important decisions explainable and reviewable.
-
----
-
-## ✨ Features
-
-* Multi-agent case workflow orchestration
-* Gemini-powered risk and document analysis
-* Human-in-the-loop approval workflow
-* UiPath Maestro integration and orchestration support
-* Enterprise dashboard for case management
-* Risk analysis and exception detection
-* Case timeline and workflow memory
-* Notifications and stakeholder updates
-* Audit logs and traceability
-* Operational analytics
-* MongoDB Atlas persistence
-* Public Vercel deployment
+These are appropriate roadmap items for a future version.
 
 ---
 
-## 🧠 AI Agent Workflow
+## Current Workflow
+
+1. Create Case
+   - Open `/cases`.
+   - Enter a title, description, optional priority, and risk level.
+   - Submit the form.
+   - The app creates a MongoDB `Case` document with a generated `CASE-...` identifier, a `CaseEvent`, and an `AuditLog`.
+
+2. Human Review
+   - Open the new case detail page from the case list.
+   - Click `Send to Human Review`.
+   - The app updates the case status to `human_review` and records event/audit entries.
+
+3. Resolve
+   - On the same case detail page, click `Resolve Case`.
+   - The app updates the case status to `resolved` and records event/audit entries.
+
+4. Timeline / Audit
+   - Open `/timeline` to view case events across the system.
+   - Open `/audit` to view audit records across the system.
+   - Open an individual case detail page to see that case's own event and audit history.
+
+5. Dashboard / Analytics
+   - Open `/dashboard` to view live case totals and recent cases.
+   - Open `/analytics` to view status, risk, human-review, and resolution metrics.
+
+---
+
+## Architecture
 
 ```text
-Case Intake Agent
-        ↓
-Document Review Agent
-        ↓
-Risk Analysis Agent
-        ↓
-Exception Agent
-        ↓
-Human Review and Approval
-        ↓
-Resolution Agent
-        ↓
-Audit Agent
-        ↓
-Notification Agent
-        ↓
-Analytics Dashboard
+Browser UI
+  |
+  |  Next.js App Router pages
+  |  /dashboard, /cases, /cases/[id], /analytics, /timeline, /audit
+  v
+Next.js Route Handlers
+  |
+  |  /api/cases
+  |  /api/cases/[id]
+  |  /api/analytics
+  |  /api/timeline
+  |  /api/audit
+  v
+Mongoose data layer
+  |
+  |-- Case
+  |-- CaseEvent
+  |-- AuditLog
+  v
+MongoDB
 ```
 
-Each agent has a defined responsibility, helping the system maintain clear handoffs, transparent reasoning, and accountable outcomes.
+The main workflow is implemented with Next.js pages calling Next.js route handlers. The route handlers connect to MongoDB through `src/lib/mongodb.ts` and read/write Mongoose models in `src/models`.
 
 ---
 
-## 🏗 Architecture
+## API Routes
 
-```text
-User
-  ↓
-Next.js Frontend
-  ↓
-API Routes
-  ↓
-Case Brain Agent
-  ↓
-Document Review Agent
-  ↓
-Risk Analysis Agent (Gemini 2.5 Flash)
-  ↓
-Exception and Escalation Agent
-  ↓
-UiPath Maestro Workflow Orchestration
-  ↓
-Human Approval
-  ↓
-Resolution Agent
-  ↓
-MongoDB Atlas
-  ↓
-Audit Logs, Notifications, and Analytics
-```
+| Route | Method | Current behavior |
+| --- | --- | --- |
+| `/api/cases` | `GET` | Lists cases from MongoDB. Supports `q`, `status`, and `risk` filters. |
+| `/api/cases` | `POST` | Creates a case with generated `caseId`, then writes a `CaseEvent` and `AuditLog`. |
+| `/api/cases/[id]` | `GET` | Returns one case plus its related events and audit logs. |
+| `/api/cases/[id]` | `PATCH` | Updates allowed case fields, including `status`, then writes a `CaseEvent` and `AuditLog`. |
+| `/api/analytics` | `GET` | Returns aggregate case counts, status distribution, risk distribution, and resolution rate. |
+| `/api/timeline` | `GET` | Returns all `CaseEvent` records with linked case details. |
+| `/api/audit` | `GET` | Returns all `AuditLog` records with linked case details. |
+| `/api/upload` | `POST` | Placeholder endpoint only. |
+
+Experimental or non-demo routes should be treated carefully. The primary judged workflow uses the case, analytics, timeline, and audit APIs above.
 
 ---
 
-## ⚙ Tech Stack
+## Tech Stack
 
-### Frontend
-
-* Next.js 16
-* TypeScript
-* Tailwind CSS
-* Recharts
-
-### Backend
-
-* Node.js
-* Next.js API Routes
-
-### Database
-
-* MongoDB Atlas
-
-### AI
-
-* Google Gemini 2.5 Flash
-
-### UiPath Components
-
-* UiPath Agent Builder
-* UiPath Maestro integration
-* API Workflows
-* Human-in-the-loop approvals
-* Action Center concepts
-* Workflow orchestration patterns
-* Case lifecycle management
-* Audit and monitoring concepts
-
-### Deployment
-
-* Vercel
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS
+- MongoDB with Mongoose
+- Lucide React icons
+- Vercel deployment
 
 ---
 
-## 📊 Application Pages
-
-* Home
-* Dashboard
-* Cases
-* Case Details
-* Analytics
-* Timeline
-* Notifications
-* Audit Logs
-* Settings
-* About
-
----
-
-## 🤖 Agent Type
-
-SentinelFlow AI uses both coded agents and low-code orchestration concepts.
-
-### Coded Agents
-
-The coded agents are implemented with:
-
-* Next.js
-* TypeScript
-* Node.js
-* Gemini 2.5 Flash
-* MongoDB Atlas
-
-### Low-Code Workflow Concepts
-
-The project uses UiPath Maestro integration and workflow patterns for:
-
-* Agent coordination
-* Workflow handoffs
-* Human approvals
-* Escalation paths
-* Case lifecycle management
-* Auditability
-
----
-
-## 🛠 Setup Instructions
+## Setup
 
 ### Prerequisites
 
-* Node.js 20 or later
-* npm
-* MongoDB Atlas account
-* Gemini API key
-* UiPath environment and required integration credentials
+- Node.js 20 or later
+- npm
+- MongoDB connection string
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/ASASANTA360/SentinelFlow-AI.git
-cd SentinelFlow-AI
-```
-
-### 2. Install Dependencies
+### Install
 
 ```bash
 npm install
 ```
 
-### 3. Configure Environment Variables
+### Environment Variables
 
-Create a `.env.local` file:
+Create `.env.local` locally. Do not commit secrets.
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
-GEMINI_API_KEY=your_gemini_api_key
+GEMINI_API_KEY=optional_for_experimental_agent_code_only
 ```
 
-Add UiPath-related environment variables required by your integration setup.
+`MONGODB_URI` is required for the live case workflow. `GEMINI_API_KEY` is present for experimental agent code, but the current demonstrable case workflow does not depend on live Gemini analysis.
 
-### 4. Start the Development Server
+### Run Locally
 
 ```bash
 npm run dev
@@ -240,86 +163,39 @@ Open:
 http://localhost:3000
 ```
 
-### 5. Run a Production Build
+### Build
 
 ```bash
 npm run build
 ```
 
-### 6. Test the Case Workflow
+---
 
-1. Create or open a case.
-2. The Case Intake Agent analyzes the submitted information.
-3. The Document Review Agent checks available case documents.
-4. The Risk Analysis Agent performs Gemini-assisted analysis.
-5. The Exception Agent identifies anomalies or missing requirements.
-6. UiPath Maestro coordinates workflow steps and approvals.
-7. A Human Review Agent requests approval where required.
-8. The Resolution Agent records the case outcome.
-9. The Audit Agent stores traceable workflow events.
-10. The Notification Agent updates relevant stakeholders.
+## Proof to Capture
+
+For submission and portfolio materials, capture these screenshots after creating and resolving a fresh case:
+
+- Dashboard showing updated totals, recent case row, human reviews, and resolved cases.
+- Cases page showing the created case in the table.
+- Case detail page after `Send to Human Review`.
+- Resolved case detail page after `Resolve Case`, including Events and Audit Logs sections.
+- Timeline page showing the created and updated case events.
+- Audit page showing `CASE_CREATED` and `CASE_UPDATED` entries.
+- Analytics page showing status distribution, risk distribution, human-review count, and resolution rate.
 
 ---
 
-## 🏆 Accomplishments
+## Demo Path
 
-We are proud of building:
+Use this route sequence for a reliable live walkthrough:
 
-* A functional end-to-end enterprise case workflow prototype
-* Gemini-powered analysis for case and risk intelligence
-* MongoDB Atlas-backed persistence
-* UiPath Maestro workflow integration
-* Specialized agents for intake, review, escalation, audit, resolution, and notifications
-* A multi-page enterprise dashboard
-* Case timelines, notifications, analytics, and audit logging
-* Human-in-the-loop approvals
-* Public source code and deployed demo
-* A successful production build
-
----
-
-## 📚 What We Learned
-
-Building SentinelFlow AI reinforced that enterprise AI requires more than intelligence.
-
-Trustworthy enterprise workflows need:
-
-* Explainability
-* Human oversight
-* Clear escalation paths
-* Persistent audit trails
-* Structured case history
-* Reliable orchestration
-* Secure and resilient system design
-
-The goal is not to remove people from enterprise decisions. The goal is to help people and AI agents collaborate more effectively.
-
----
-
-## 🔮 Future Roadmap
-
-* Real-time agent monitoring
-* Role-based access control
-* Multi-user collaboration
-* Vector memory and case context
-* Advanced document-upload intelligence
-* MCP integrations
-* External enterprise-system integrations
-* Multi-tenant support
-* Workflow templates
-* Advanced analytics and reporting
-* Expanded UiPath Agent Builder and Maestro workflows
-
----
-
-## 🚀 Live Demo
-
-https://sentinel-flow-ai-xi.vercel.app/
-
-## 📂 Repository
-
-https://github.com/ASASANTA360/SentinelFlow-AI
-
----
+```text
+/dashboard
+/cases
+/cases/[created-case-id]
+/timeline
+/audit
+/analytics
+```
 
 Built for UiPath AgentHack 2026.
