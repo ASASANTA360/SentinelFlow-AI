@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 
 import { connectDB } from "../../../lib/mongodb";
 import AuditLog from "../../../models/AuditLog";
@@ -132,8 +133,11 @@ export async function POST(request: NextRequest) {
       return errorResponse("Invalid risk level.", 400);
     }
 
+    const caseId = `CASE-${randomUUID()}`;
+
     phase = "case_create";
     const createdCase = await Case.create({
+      caseId,
       title,
       description,
       riskLevel,

@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const CaseSchema = new mongoose.Schema(
   {
+    caseId: {
+      type: String,
+      required: true,
+    },
+
     title: {
       type: String,
       required: true,
