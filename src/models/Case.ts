@@ -2,9 +2,17 @@ import mongoose from "mongoose";
 
 const CaseSchema = new mongoose.Schema(
   {
-    title: String,
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-    description: String,
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
     riskLevel: {
       type: String,
@@ -18,14 +26,32 @@ const CaseSchema = new mongoose.Schema(
         "pending",
         "in_progress",
         "human_review",
+        "escalated",
         "resolved",
+        "rejected",
       ],
       default: "pending",
     },
 
-    score: Number,
+    score: {
+      type: Number,
+      default: 0,
+    },
 
-    assignedAgent: String,
+    assignedAgent: {
+      type: String,
+      default: "Case Brain Agent",
+    },
+
+    aiSummary: String,
+
+    recommendation: String,
+
+    findings: [String],
+
+    priority: String,
+
+    lastUpdatedBy: String,
   },
   {
     timestamps: true,
