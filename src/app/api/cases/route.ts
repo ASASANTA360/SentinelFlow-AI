@@ -30,6 +30,31 @@ function isDatabaseConfigError(error: unknown) {
   );
 }
 
+type PostOperationPhase =
+  | "database_connect"
+  | "case_create"
+  | "event_create"
+  | "audit_log_create";
+
+const postFailureCodes: Record<PostOperationPhase, string> = {
+  database_connect: "DATABASE_CONNECT_FAILED",
+  case_create: "CASE_CREATE_FAILED",
+  event_create: "EVENT_CREATE_FAILED",
+  audit_log_create: "AUDIT_LOG_CREATE_FAILED",
+};
+
+function getErrorDetails(error: unknown) {
+  const errorRecord =
+    error && typeof error === "object" ? (error as Record<string, unknown>) : {};
+  const code = errorRecord.code;
+
+  return {
+    name: error instanceof Error ? error.name : typeof error,
+    message: error instanceof Error ? error.message : "Unknown error",
+    ...(typeof code === "string" || typeof code === "number" ? { code } : {}),
+  };
+}
+
 export async function GET(request: NextRequest) {
   try {
     await connectDB();
@@ -85,6 +110,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  let phase: PostOperationPhase = "database_connect";
+
   try {
     await connectDB();
 
@@ -105,6 +132,7 @@ export async function POST(request: NextRequest) {
       return errorResponse("Invalid risk level.", 400);
     }
 
+    phase = "case_create";
     const createdCase = await Case.create({
       title,
       description,
@@ -112,6 +140,7 @@ export async function POST(request: NextRequest) {
       priority,
     });
 
+    phase = "event_create";
     await CaseEvent.create({
       caseId: createdCase._id,
       type: "created",
@@ -123,6 +152,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    phase = "audit_log_create";
     await AuditLog.create({
       caseId: createdCase._id,
       action: "CASE_CREATED",
@@ -135,10 +165,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ case: createdCase }, { status: 201 });
   } catch (error) {
-    if (isDatabaseConfigError(error)) {
-      return errorResponse("Database connection is not configured.", 500);
-    }
+    console.error({
+      phase,
+      ...getErrorDetails(error),
+    });
 
-    return errorResponse("Failed to create case.", 500);
+    return NextResponse.json(
+      { error: "Failed to create case.", code: postFailureCodes[phase] },
+      { status: 500 },
+    );
   }
 }
