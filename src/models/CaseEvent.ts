@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const AuditSchema = new mongoose.Schema(
+const CaseEventSchema = new mongoose.Schema(
   {
     caseId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -8,7 +8,13 @@ const AuditSchema = new mongoose.Schema(
       required: true,
     },
 
-    action: {
+    type: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    message: {
       type: String,
       required: true,
       trim: true,
@@ -21,7 +27,7 @@ const AuditSchema = new mongoose.Schema(
       trim: true,
     },
 
-    details: mongoose.Schema.Types.Mixed,
+    metadata: mongoose.Schema.Types.Mixed,
 
     createdAt: {
       type: Date,
@@ -33,5 +39,5 @@ const AuditSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.models.AuditLog ||
-  mongoose.model("AuditLog", AuditSchema);
+export default mongoose.models.CaseEvent ||
+  mongoose.model("CaseEvent", CaseEventSchema);
