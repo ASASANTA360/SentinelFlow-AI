@@ -2,20 +2,23 @@ import { NextResponse } from "next/server";
 
 import { connectDB } from "../../../lib/mongodb";
 
-import Timeline from "../../../models/Timeline";
+import "../../../models/Case";
+import CaseEvent from "../../../models/CaseEvent";
 
 export async function GET() {
+  try {
+    await connectDB();
 
-  await connectDB();
+    const events = await CaseEvent.find()
+      .sort({ createdAt: -1 })
+      .populate("caseId", "caseId title")
+      .lean();
 
-  const timeline =
-    await Timeline.find()
-      .sort({
-        createdAt: -1,
-      });
-
-  return NextResponse.json(
-    timeline
-  );
-
+    return NextResponse.json({ events });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch timeline events." },
+      { status: 500 },
+    );
+  }
 }
